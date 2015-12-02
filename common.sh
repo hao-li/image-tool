@@ -34,56 +34,63 @@ function GetImgHeightBySize()
 
 function ResizeImageByWidth()
 {
-	base_name=$1
-	ext_name=$2
-	width_list=(${@:3})
+	dest_dir=$1
+	base_name=$2
+	ext_name=$3
+	width_list=(${@:4})
 	for width in ${width_list[@]}
 	do
+		dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
 		tmp_file="${base_name}_tmp.${ext_name}"
 		convert -resize ${width} ${base_name}.${ext_name} ${tmp_file}
 		height=$(GetImgHeight ${tmp_file})
-		mv "${tmp_file}" "${base_name}_${width}_${height}.${ext_name}"
+		mv "${tmp_file}" "${dest_file}"
 	done
 }
 
 function ResizeImageByLteWidth()
 {
-	base_name=$1
-	ext_name=$2
-	lte_width_list=(${@:3})
+	dest_dir=$1
+	base_name=$2
+	ext_name=$3
+	lte_width_list=(${@:4})
 	for lte_width in ${lte_width_list[@]}
 	do
+		dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
 		tmp_file="${base_name}_tmp.${ext_name}"
 		convert -resize "${lte_width}>" ${base_name}.${ext_name} ${tmp_file}
 		size=$(GetImgSize "${tmp_file}")
 		width=$(GetImgWidthBySize "${size}")
 		height=$(GetImgHeightBySize "${size}")
-		mv "${tmp_file}" "${base_name}_${width}_${height}.${ext_name}"
+		mv "${tmp_file}" "${dest_file}"
 	done
 }
 
 function ResizeImageByHeight()
 {
-	base_name=$1
-	ext_name=$2
-	height_list=(${@:3})
+	dest_dir=$1
+	base_name=$2
+	ext_name=$3
+	height_list=(${@:4})
 	for height in ${height_list[@]}
 	do
+		dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
 		tmp_file="${base_name}_tmp.${ext_name}"
 		convert -resize x${height} ${base_name}.${ext_name} ${tmp_file}
 		width=$(GetImgWidth ${tmp_file})
-		mv "${tmp_file}" "${base_name}_${width}_${height}.${ext_name}"
+		mv "${tmp_file}" "${dest_file}"
 	done
 }
 
 function CropImageByLength()
 {
-	base_name=$1
-	ext_name=$2
-	length_list=(${@:3})
+	dest_dir=$1
+	base_name=$2
+	ext_name=$3
+	length_list=(${@:4})
 	for length in ${length_list[@]}
 	do
-		dest_file="${base_name}_s_${length}_${length}.${ext_name}"
+		dest_file="${dest_dir}/${base_name}_s_${length}_${length}.${ext_name}"
 		org_file="${base_name}.${ext_name}"
 		org_size=$(GetImgSize "${org_file}")
 		org_width=$(GetImgWidthBySize "${org_size}")
@@ -100,9 +107,10 @@ function CropImageByLength()
 
 function CropImageBySize()
 {
-	base_name=$1
-	ext_name=$2
-	size_list=(${@:3})
+	dest_dir = $1
+	base_name=$2
+	ext_name=$3
+	size_list=(${@:4})
 	for size in ${size_list[@]}
 	do
 		org_file="${base_name}.${ext_name}"
@@ -111,7 +119,7 @@ function CropImageBySize()
 		org_height=$(GetImgHeightBySize "${org_size}")
 		width=$(GetImgWidthBySize "${size}")
 		height=$(GetImgHeightBySize "${size}")
-		dest_file="${base_name}_s_${width}_${height}.${ext_name}"
+		dest_file="${dest_dir}/${base_name}_s_${width}_${height}.${ext_name}"
 		
 		if [ "$(($org_width * $height))" -lt "$(($org_height * $width))" ]; then
 			tmp_width=$org_width
