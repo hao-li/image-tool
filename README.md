@@ -12,8 +12,9 @@
 --- | ---
 ResizeImageByWidth | 按照指定宽度等比缩放，可用于瀑布流
 ResizeImageByLteWidth | 按照指定宽度等比缩放、若原图宽度小于等于指定宽度则不缩放，可用于图片微博
-CropImageByLength | 按照指定边长缩放、裁剪出**正方形**图片，可用于用户头像处理
-CropImageBySize | 按照指定尺寸缩放、裁剪图片**矩形**图片，可用于商品、文章封面处理
+CropImageByLength | 按照指定边长缩放、裁剪出 **正方形** 图片，可用于用户头像处理
+CropImageBySize | 按照指定尺寸缩放、裁剪出 **矩形** 图片，可用于商品、文章封面处理
+GenerateImageByText| 按照指定文本、字体、颜色、尺寸生成出 **矩形** 图片
 
 *裁剪默认使用中央裁剪，并未实现参数化控制*
 
