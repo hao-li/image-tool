@@ -107,7 +107,7 @@ function CropImageByLength()
 
 function CropImageBySize()
 {
-  dest_dir = $1
+  dest_dir=$1
   base_name=$2
   ext_name=$3
   size_list=(${@:4})
@@ -131,5 +131,24 @@ function CropImageBySize()
     echo ${tmp_width}x${tmp_height} $size ${org_width}x${org_height}
     convert -gravity center -crop ${tmp_width}x${tmp_height}+0+0 ${org_file} ${dest_file}
     mogrify -resize ${width}x${height} "${dest_file}"
+  done
+}
+
+function GenerateImageByText()
+{
+  dest_dir=$1
+  base_name=$2
+  ext_name=$3
+  text=$4
+  font=$5
+  background_color=$6
+  fill_color=$7
+  size_list=(${@:8})
+  for size in ${size_list[@]}
+  do
+    width=$(GetImgWidthBySize "${size}")
+    height=$(GetImgHeightBySize "${size}")
+    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
+    convert -size "${size}" -gravity center -font "${font}" -background "${background_color}" -fill "${fill_color}" label:"${text}" "${dest_file}"
   done
 }
