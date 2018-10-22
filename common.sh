@@ -40,10 +40,10 @@ function ResizeImageByWidth()
   width_list=(${@:4})
   for width in ${width_list[@]}
   do
-    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     tmp_file="${base_name}_tmp.${ext_name}"
     convert -resize ${width} ${base_name}.${ext_name} ${tmp_file}
     height=$(GetImgHeight ${tmp_file})
+    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     mv "${tmp_file}" "${dest_file}"
   done
 }
@@ -56,12 +56,12 @@ function ResizeImageByLteWidth()
   lte_width_list=(${@:4})
   for lte_width in ${lte_width_list[@]}
   do
-    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     tmp_file="${base_name}_tmp.${ext_name}"
     convert -resize "${lte_width}>" ${base_name}.${ext_name} ${tmp_file}
     size=$(GetImgSize "${tmp_file}")
     width=$(GetImgWidthBySize "${size}")
     height=$(GetImgHeightBySize "${size}")
+    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     mv "${tmp_file}" "${dest_file}"
   done
 }
@@ -74,10 +74,10 @@ function ResizeImageByHeight()
   height_list=(${@:4})
   for height in ${height_list[@]}
   do
-    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     tmp_file="${base_name}_tmp.${ext_name}"
     convert -resize x${height} ${base_name}.${ext_name} ${tmp_file}
     width=$(GetImgWidth ${tmp_file})
+    dest_file="${dest_dir}/${base_name}_${width}_${height}.${ext_name}"
     mv "${tmp_file}" "${dest_file}"
   done
 }
